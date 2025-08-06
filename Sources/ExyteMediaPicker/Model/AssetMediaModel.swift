@@ -5,13 +5,13 @@
 import Foundation
 import Photos
 
-struct AssetMediaModel {
-    let asset: PHAsset
+public struct AssetMediaModel {
+    public let asset: PHAsset
 }
 
 extension AssetMediaModel: MediaModelProtocol {
 
-    var mediaType: MediaType? {
+    public var mediaType: MediaType? {
         switch asset.mediaType {
         case .image:
             return .image
@@ -22,35 +22,35 @@ extension AssetMediaModel: MediaModelProtocol {
         }
     }
 
-    var duration: CGFloat? {
+    public var duration: CGFloat? {
         CGFloat(asset.duration)
     }
 
-    func getURL() async -> URL? {
+    public func getURL() async -> URL? {
         await asset.getURL()
     }
 
-    func getThumbnailURL() async -> URL? {
+    public func getThumbnailURL() async -> URL? {
         await asset.getThumbnailURL()
     }
 
-    func getData() async throws -> Data? {
+    public func getData() async throws -> Data? {
         try await asset.getData()
     }
 
-    func getThumbnailData() async -> Data? {
+    public func getThumbnailData() async -> Data? {
         await asset.getThumbnailData()
     }
 }
 
 extension AssetMediaModel: Identifiable {
-    var id: String {
+    public var id: String {
         asset.localIdentifier
     }
 }
 
 extension AssetMediaModel: Equatable {
-    static func ==(lhs: AssetMediaModel, rhs: AssetMediaModel) -> Bool {
+    public static func ==(lhs: AssetMediaModel, rhs: AssetMediaModel) -> Bool {
         lhs.id == rhs.id
     }
 }
