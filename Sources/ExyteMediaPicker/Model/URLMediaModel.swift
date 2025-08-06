@@ -9,13 +9,16 @@ import SwiftUI
 import UniformTypeIdentifiers
 import AVFoundation
 
-struct URLMediaModel {
-    let url: URL
+public struct URLMediaModel {
+    public let url: URL
+    public init(url: URL) {
+        self.url = url
+    }
 }
 
 extension URLMediaModel: MediaModelProtocol {
 
-    var mediaType: MediaType? {
+    public var mediaType: MediaType? {
         if url.isImageFile {
             return .image
         }
@@ -25,7 +28,7 @@ extension URLMediaModel: MediaModelProtocol {
         return nil
     }
 
-    var duration: CGFloat? {
+    public var duration: CGFloat? {
         get async {
             let asset = AVURLAsset(url: url)
             do {
@@ -37,11 +40,11 @@ extension URLMediaModel: MediaModelProtocol {
         }
     }
 
-    func getURL() async -> URL? {
+    public func getURL() async -> URL? {
         url
     }
 
-    func getThumbnailURL() async -> URL? {
+    public func getThumbnailURL() async -> URL? {
         switch mediaType {
         case .image:
             return url
@@ -52,11 +55,11 @@ extension URLMediaModel: MediaModelProtocol {
         }
     }
 
-    func getData() async throws -> Data? {
+    public func getData() async throws -> Data? {
         try? Data(contentsOf: url)
     }
 
-    func getThumbnailData() async -> Data? {
+    public func getThumbnailData() async -> Data? {
         switch mediaType {
         case .image:
             return try? Data(contentsOf: url)
@@ -69,13 +72,13 @@ extension URLMediaModel: MediaModelProtocol {
 }
 
 extension URLMediaModel: Identifiable {
-    var id: String {
+    public var id: String {
         url.absoluteString
     }
 }
 
 extension URLMediaModel: Equatable {
-    static func ==(lhs: URLMediaModel, rhs: URLMediaModel) -> Bool {
+    public static func ==(lhs: URLMediaModel, rhs: URLMediaModel) -> Bool {
         lhs.id == rhs.id
     }
 }
