@@ -7,6 +7,9 @@ import Photos
 
 public struct AssetMediaModel {
     public let asset: PHAsset
+    public init(asset: PHAsset) {
+        self.asset = asset
+    }
 }
 
 extension AssetMediaModel: MediaModelProtocol {
